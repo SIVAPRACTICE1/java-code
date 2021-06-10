@@ -1,25 +1,24 @@
 node('master') 
 {
-    stage('ContinuousDownload')
+    stage('continousdownload') 
     {
-        git 'https://github.com/intelliqittrainings/maven.git'             
+    git 'https://github.com/SIVAPRACTICE1/java-code.git'
     }
-    stage('ContinuousBuild')
+    stage('continousbuild') 
     {
-        sh 'mvn package'
+    sh 'mvn package'
     }
-    stage('ContinuousDeployment')
+    stage('continousdeploy') 
     {
-sh 'scp /home/ubuntu/.jenkins/workspace/ScriptedPipeline/webapp/target/webapp.war ubuntu@172.31.23.20:/var/lib/tomcat9/webapps/testapp.war'
+    sh 'scp /var/lib/jenkins/workspace/development/webapp/target/webapp.war <user>@<ip address>:/var/lib/tomcat9/webapps/qaapp.war'
     }
-
-    stage('ContinuousTesting')
+    stage('continoustest')
     {
-        git 'https://github.com/intelliqittrainings/FunctionalTesting.git'
-        sh 'java -jar /home/ubuntu/.jenkins/workspace/ScriptedPipeline/testing.jar'
+    git 'https://github.com/SIVAPRACTICE1/testing-scripts.git'
+    sh 'java -jar /var/lib/jenkins/workspace/development/testing.jar'
     }
-    stage('ContinuousDelivery')
+    stage('continousdelivery')
     {
-    
-    sh 'scp /home/ubuntu/.jenkins/workspace/ScriptedPipeline/webapp/target/webapp.war ubuntu@172.31.28.60:/var/lib/tomcat9/webapps/prodapp.war'}
-}
+    sh 'scp /var/lib/jenkins/workspace/development/webapp/target/webapp.war <user>@<ip address>:/var/lib/tomcat9/webapps/prodapp.war'
+    }
+}    
